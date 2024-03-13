@@ -1,0 +1,23 @@
+
+form {
+    margin-top: 10%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+form select {
+    border-radius: 6px;
+    background-color: inherit;
+    padding: 10px;
+    font-size: 26px;
+    width: 400px;
+}
+
+.form__button{
+    height: 50px;
+    width: 400px;
+    margin: 0 auto;
+    font-size: 26px;
+}

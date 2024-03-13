@@ -10,16 +10,16 @@ export const initialState: FormState = {
 };
 
 export const educationList = [
-  { id: 5, name: "Технический" },
-  { id: 6, name: "Гуманитарный" }
+  { id: 1, name: "Технический" },
+  { id: 2, name: "Гуманитарный" }
 ]
 
 export const contriesList: DataTypes[] = [
   {
-    id: 1, name: "Russia",
+    id: 1, name: "Россия",
     city: [
-      { id: 1, name: "Moskow" },
-      { id: 2, name: "Kazan" },
+      { id: 1, name: "Москва" },
+      { id: 2, name: "Сочи" },
     ],
     accommodation: [
       { id: 1, name: "Общежитиe" },
@@ -29,10 +29,10 @@ export const contriesList: DataTypes[] = [
     ]
   },
   {
-    id: 2, name: "Belarus",
+    id: 2, name: "Беларусь",
     city: [
-      { id: 3, name: "Gomel" },
-      { id: 4, name: "Minsk" },
+      { id: 3, name: "Минск" },
+      { id: 4, name: "Гомель" },
     ],
     accommodation: [
       { id: 1, name: "Общежитие" },

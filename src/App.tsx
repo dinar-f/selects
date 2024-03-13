@@ -1,25 +1,8 @@
 import { useReducer, useMemo } from 'react';
-import { FormState, Item } from './types/types';
-import { defaultOption, contriesList, educationList } from './constants';
 import { reducer } from './reducer/reducer';
+import { generateOptionsElements } from './utils/generateOptions';
+import { contriesList, educationList, initialState } from './constants';
 import "./styles/App.css"
-
-const initialState: FormState = {
-  country: null,
-  city: null,
-  education: null,
-  accommodation: null,
-};
-
-function generateOptionsElements(values?: Item[]) {
-  return [{ id: "", name: defaultOption }, ...(values ?? [])]?.map(
-    (item) => (
-      <option key={item.id} value={item.name}>
-        {item.name}
-      </option>
-    )
-  );
-}
 
 function App() {
   const [formState, dispatch] = useReducer(reducer, initialState);
@@ -49,20 +32,18 @@ function App() {
         >
           {generateOptionsElements(contriesList)}
         </select>
-
-          <select
-            name={"city"}
-            disabled={!country}
-            onChange={(e) => {
-              dispatch({
-                type: "changed_city",
-                payload: e.target.value,
-              });
-            }}
-          >
-            {generateOptionsElements(country?.city)}
-          </select>
-
+        <select
+          name={"city"}
+          disabled={!country}
+          onChange={(e) => {
+            dispatch({
+              type: "changed_city",
+              payload: e.target.value,
+            });
+          }}
+        >
+          {generateOptionsElements(country?.city)}
+        </select>
         <select
           name={"education"}
           onChange={(e) => {
@@ -74,7 +55,6 @@ function App() {
         >
           {generateOptionsElements(educationList)}
         </select>
-
         <select
           name={"accommodation"}
           disabled={!city}
@@ -87,7 +67,6 @@ function App() {
         >
           {generateOptionsElements(country?.accommodation)}
         </select>
-
         <button
           className="form__button"
           disabled={isDisabled}>

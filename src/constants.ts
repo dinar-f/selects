@@ -1,6 +1,13 @@
-import { DataTypes } from "./types/types"
+import { DataTypes,FormState } from "./types/types"
 
 export const defaultOption: string = "-- Select value --";
+
+export const initialState: FormState = {
+  country: null,
+  city: null,
+  education: null,
+  accommodation: null,
+};
 
 export const educationList = [
   { id: 5, name: "Технический" },

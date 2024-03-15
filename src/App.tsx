@@ -22,6 +22,7 @@ function App() {
         className="form"
         onSubmit={handleSubmit}>
         <select
+          aria-label="country"
           name={"country"}
           onChange={(e) => {
             dispatch({
@@ -33,6 +34,7 @@ function App() {
           {generateOptionsElements(contriesList)}
         </select>
         <select
+          aria-label="city"
           name={"city"}
           disabled={!country}
           onChange={(e) => {
@@ -56,6 +58,7 @@ function App() {
           {generateOptionsElements(educationList)}
         </select>
         <select
+          aria-label="accommodation"
           name={"accommodation"}
           disabled={!city}
           onChange={(e) => {

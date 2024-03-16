@@ -4,7 +4,15 @@ import userEvent from "@testing-library/user-event"
 import App from "../App"
 
 const RBcities = ["Минск", "Гомель"];
-const citiesRus = ["Москва", "Сочи"];
+const RFcities = ["Москва", "Сочи"];
+
+const RBRentalValues = ["Общежитие", "Не интересует"];
+const RFRentalValues = [
+    "Аренда",
+    "Не интересует",
+    "Общежитиe",
+    "Общежития + Аренда",
+];
 
 test("enabled next select after previous", async () => {
     render(<App />)
@@ -86,7 +94,7 @@ test("different cities lists, depending on the country", async () => {
     const countrySelest = screen.getByRole("combobox", { name: "country" });
     const citySelect = screen.getByRole("combobox", { name: "city" });
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         countrySelest,
         screen.getByRole("option", { name: "Беларусь" })
     );
@@ -110,13 +118,49 @@ test("different cities lists, depending on the country", async () => {
         screen.getByRole("option", { name: "Россия" })
     );
 
-    const RussiaOptionCities = within(
+    const RussianOptionCities = within(
         screen.getByRole("combobox", { name: "city" })
     ).getAllByRole("option");
 
-    RussiaOptionCities
+    RussianOptionCities
         .filter((option) => option.innerHTML !== "-- Select value --")
         .forEach((option) => {
-            expect(citiesRus.includes(option?.innerHTML)).toBeTruthy();
+            expect(RFcities.includes(option?.innerHTML)).toBeTruthy();
         });
+})
+
+test("different accomodation lists, depending on the country", async () => {
+    render(<App />)
+    const countrySelest = screen.getByRole("combobox", { name: "country" });
+
+    await userEvent.selectOptions(
+        countrySelest,
+        screen.getByRole("option", { name: "Россия" })
+    );
+
+    const RFaccomodationList = within(
+        screen.getByRole("combobox", { name: "accommodation" })
+    ).getAllByRole("option");
+
+    RFaccomodationList
+        .filter((option) => option.innerHTML !== "-- Select value --")
+        .forEach((option) => {
+            expect(RFRentalValues.includes(option?.innerHTML)).toBeTruthy();
+        });
+
+    await userEvent.selectOptions(
+        countrySelest,
+        screen.getByRole("option", { name: "Беларусь" })
+    );
+
+    const RBaccomodationList = within(
+        screen.getByRole("combobox", { name: "accommodation" })
+    ).getAllByRole("option");
+
+    RBaccomodationList
+        .filter((option) => option.innerHTML !== "-- Select value --")
+        .forEach((option) => {
+            expect(RBRentalValues.includes(option?.innerHTML)).toBeTruthy();
+        });
+
 })

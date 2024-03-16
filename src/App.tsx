@@ -47,6 +47,7 @@ function App() {
           {generateOptionsElements(country?.city)}
         </select>
         <select
+          aria-label="education"
           name={"education"}
           onChange={(e) => {
             dispatch({

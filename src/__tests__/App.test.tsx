@@ -18,7 +18,7 @@ test("enabled next select after previous", async () => {
     expect(citySelect).toBeDisabled();
     expect(accommodationSelect).toBeDisabled();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         countrySelest,
         screen.getByRole("option", { name: "Россия" })
     )
@@ -26,10 +26,9 @@ test("enabled next select after previous", async () => {
     await waitFor(() => {
         expect(citySelect).not.toBeDisabled();
     });
-
     expect(accommodationSelect).toBeDisabled();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         citySelect,
         screen.getByRole("option", { name: "Москва" })
     );
@@ -37,7 +36,6 @@ test("enabled next select after previous", async () => {
     await waitFor(() => {
         expect(accommodationSelect).not.toBeDisabled();
     });
-
 })
 
 test("button disabled when any selector is empty", async () => {
@@ -48,38 +46,43 @@ test("button disabled when any selector is empty", async () => {
     const accommodationSelect = screen.getByRole("combobox", {
         name: "accommodation",
     });
-    const submitButton = screen.findByText(/отправить/i)
+    const eduSelect = screen.getByRole("combobox", { name: "education" })
 
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         countrySelest,
         screen.getByRole("option", { name: "Россия" })
     )
 
-    await waitFor(() => {
-        expect(citySelect).not.toBeDisabled();
-    });
+    const submitButton = screen.getByText('Отправить', { selector: 'button' });
+    expect(submitButton).toBeDisabled();
 
-    expect(submitButton).toBeDisabled
-
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         citySelect,
         screen.getByRole("option", { name: "Москва" })
     );
 
-    expect(submitButton).toBeDisabled
+    expect(submitButton).toBeDisabled();
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
+        eduSelect,
+        screen.getByRole("option", { name: "Технический" })
+    )
+
+    expect(submitButton).toBeDisabled();
+
+    await userEvent.selectOptions(
         accommodationSelect,
         screen.getByRole("option", { name: "Аренда" })
     );
 
-    expect(submitButton).not.toBeDisabled
+    await waitFor(() => {
+        expect(submitButton).not.toBeDisabled();
+    });
 })
 
 test("different cities lists, depending on the country", async () => {
     render(<App />)
-
     const countrySelest = screen.getByRole("combobox", { name: "country" });
     const citySelect = screen.getByRole("combobox", { name: "city" });
 
@@ -102,14 +105,10 @@ test("different cities lists, depending on the country", async () => {
             expect(RBcities.includes(option?.innerHTML)).toBeTruthy();
         });
 
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
         countrySelest,
         screen.getByRole("option", { name: "Россия" })
     );
-
-    await waitFor(() => {
-        expect(screen.getByText("Россия")).toBeInTheDocument();
-    });
 
     const RussiaOptionCities = within(
         screen.getByRole("combobox", { name: "city" })

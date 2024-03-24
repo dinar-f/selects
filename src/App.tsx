@@ -67,7 +67,7 @@ const getAvailableSubjectList = ({ education }: FormState): Subject[] => {
 
 function App() {
   const [formState, dispatch] = useReducer(reducer, initialState);
-  console.log(formState)
+
   const { citiesList, accommodationList, educationList, subjectTypesList } =
     useMemo(() => {
       return {

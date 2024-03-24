@@ -1,4 +1,4 @@
-import { FormState, Country, City, Education, Accommodation, Subject } from "./types/types"
+import { FormState, Country, City, Education, Subject } from "./types/types"
 
 export const defaultOption: string = "-- Select value --";
 
@@ -30,7 +30,7 @@ export const educationList: Education[] = [
   { id: 2, name: "Гуманитарный" }
 ]
 
-export const accommodationsList: Accommodation[] = [
+export const accommodationsList = [
   { id: 1, name: "Общежитиe" },
   { id: 2, name: "Не интересует" },
   { id: 3, name: "Общежитие + Аренда" },

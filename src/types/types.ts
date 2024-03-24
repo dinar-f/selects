@@ -1,6 +1,6 @@
 export type Item = {
-  id: number;
-  name: string;
+  id: string | number;
+  name?: string;
 };
 
 export type CustomAction = {
@@ -8,14 +8,16 @@ export type CustomAction = {
   payload: string;
 };
 
-export type DataTypes = Item & {
-  city: Item[];
-  accommodation: Item[];
-};
-
 export type FormState = {
-  country: DataTypes | null;
-  city: Item | null;
-  education: string | null;
-  accommodation: Item | null;
+  country: Country | null;
+  city: City | null;
+  education: Education | null;
+  subject: Subject | null;
+  accommodation: Accommodation | null;
 }
+
+export type Country = Item;
+export type City = Item;
+export type Accommodation = Item;
+export type Subject = Item;
+export type Education = Item;
